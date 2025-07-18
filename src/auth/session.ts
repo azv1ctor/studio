@@ -16,6 +16,7 @@ type SessionPayload = {
     email: string;
     role: string;
     groupId?: string; // groupId é opcional
+    permissions: string[];
   };
   expires: Date;
 };

@@ -56,14 +56,14 @@ export function MainSidebar({ user }: { user: EmployeeWithPermissions }) {
   const visibleLinks = allLinks.filter(link => user.permissions?.includes(link.href))
 
   return (
-    <aside className="hidden h-screen w-64 flex-col border-r bg-sidebar text-sidebar-foreground p-4 md:flex">
-      <div className="flex items-center gap-2 mb-8">
+    <aside className="hidden h-screen w-64 flex-col border-r bg-sidebar p-4 text-sidebar-foreground md:flex">
+      <div className="mb-8 flex items-center gap-2">
         <Briefcase className="h-8 w-8 text-primary" />
-        <h1 className="text-2xl font-bold text-primary font-headline">
+        <h1 className="font-headline text-2xl font-bold text-primary">
           Pimenta de Cheiro
         </h1>
       </div>
-      <nav className="flex flex-col gap-2 flex-1">
+      <nav className="flex flex-1 flex-col gap-2">
         {visibleLinks.map((link) => (
           <Button
             key={link.href}

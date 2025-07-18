@@ -5,9 +5,9 @@
 import { z } from "zod";
 import { cookies } from "next/headers";
 import { encrypt } from "./session";
-import type { Employee } from "@/lib/types";
-import { getEmployees } from "@/lib/api";
-
+import type { Employee, Group } from "@/lib/types";
+import { getEmployees, getGroups } from "@/lib/api";
+import { revalidatePath } from "next/cache";
 
 const LoginSchema = z.object({
   email: z.string().email("Email inválido."),
@@ -22,7 +22,10 @@ export async function login(formData: z.infer<typeof LoginSchema>) {
   }
 
   const { email, password } = validatedFields.data;
-  const employees = await getEmployees();
+  
+  // Fetch users and groups in parallel for efficiency
+  const [employees, groups] = await Promise.all([getEmployees(), getGroups()]);
+
   const user = employees.find((e) => e.email === email);
   
   // Note: In a real app, you MUST hash and salt passwords.
@@ -31,7 +34,27 @@ export async function login(formData: z.infer<typeof LoginSchema>) {
     return { error: "Credenciais inválidas." };
   }
 
-  // Create the session with non-sensitive data
+  let userPermissions: string[] = [];
+  if (user.role === 'Manager') {
+     userPermissions = [
+        "/dashboard",
+        "/products",
+        "/stock-movements",
+        "/transfers",
+        "/shopping-list",
+        "/employees",
+        "/departments",
+        "/groups",
+        "/reports",
+     ];
+  } else if (user.groupId) {
+    const userGroup = groups.find(g => g.id === user.groupId);
+    if (userGroup) {
+        userPermissions = userGroup.permissions || [];
+    }
+  }
+
+  // Create the session with non-sensitive data AND permissions
   const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
   const sessionPayload = {
     user: {
@@ -40,6 +63,7 @@ export async function login(formData: z.infer<typeof LoginSchema>) {
       email: user.email,
       role: user.role,
       groupId: user.groupId,
+      permissions: userPermissions,
     },
     expires,
   };
