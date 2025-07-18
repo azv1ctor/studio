@@ -63,7 +63,12 @@ export function TransferForm({ products, departments }: TransferFormProps) {
           title: "Sucesso!",
           description: "Transferência de estoque registrada.",
         });
-        form.reset();
+        form.reset({
+          productId: undefined,
+          quantity: 1,
+          fromDepartmentId: undefined,
+          toDepartmentId: undefined,
+        });
       }
     });
   };

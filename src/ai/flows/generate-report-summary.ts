@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -30,12 +31,17 @@ const prompt = ai.definePrompt({
   name: 'generateReportSummaryPrompt',
   input: {schema: GenerateReportSummaryInputSchema},
   output: {schema: GenerateReportSummaryOutputSchema},
-  prompt: `Você é um assistente de IA encarregado de resumir relatórios para um sistema de gerenciamento de estoque. Você deve fornecer um resumo sucinto e de fácil compreensão dos dados do relatório fornecidos. **Sua resposta deve ser sempre em português do Brasil.**
+  prompt: `Você é um assistente de IA encarregado de resumir relatórios para um sistema de gerenciamento de estoque. Sua principal tarefa é fornecer um resumo sucinto e de fácil compreensão dos dados do relatório.
+
+**Instruções Importantes:**
+1.  **Sempre responda em português do Brasil.**
+2.  **Nunca inclua IDs** (como ID do produto, ID do funcionário, etc.) em seu resumo. Em vez disso, use os nomes correspondentes (nome do produto, nome do funcionário, etc.).
+3.  Seja breve e foque nos pontos mais importantes.
 
 Tipo de Relatório: {{{reportType}}}
 Dados do Relatório: {{{reportData}}}
 
-Resumo:`,
+Resumo conciso:`,
 });
 
 const generateReportSummaryFlow = ai.defineFlow(
