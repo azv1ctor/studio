@@ -9,8 +9,8 @@ export default async function DepartmentsPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        title="Departamentos"
-        description="Gerencie os departamentos para seus produtos."
+        title="Setores"
+        description="Gerencie os setores para seus produtos."
       />
       <DepartmentsClient data={departments} />
     </div>

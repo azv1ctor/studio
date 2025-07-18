@@ -60,13 +60,13 @@ export function DepartmentDialog({
       if (result.error) {
         toast({
           title: "Erro",
-          description: "Falha ao salvar departamento.",
+          description: "Falha ao salvar setor.",
           variant: "destructive",
         })
       } else {
         toast({
           title: "Sucesso",
-          description: `Departamento ${department ? "atualizado" : "criado"} com sucesso.`,
+          description: `Setor ${department ? "atualizado" : "criado"} com sucesso.`,
         })
         onOpenChange(false)
       }
@@ -78,12 +78,12 @@ export function DepartmentDialog({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            {department ? "Editar Departamento" : "Adicionar Departamento"}
+            {department ? "Editar Setor" : "Adicionar Setor"}
           </DialogTitle>
           <DialogDescription>
             {department
-              ? "Edite os detalhes do departamento."
-              : "Adicione um novo departamento."}
+              ? "Edite os detalhes do setor."
+              : "Adicione um novo setor."}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -95,7 +95,7 @@ export function DepartmentDialog({
                 <FormItem>
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
-                    <Input placeholder="ex: Bebidas" {...field} />
+                    <Input placeholder="ex: Cozinha" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

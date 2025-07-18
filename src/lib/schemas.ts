@@ -2,7 +2,7 @@
 import { z } from "zod"
 
 export const ProductSchema = z.object({
-  id: z.string().default(() => crypto.randomUUID()),
+  id: z.string().optional(),
   name: z.string().min(2, "O nome deve ter pelo menos 2 caracteres."),
   description: z.string().optional(),
   quantity: z.coerce.number().int().min(0, "A quantidade não pode ser negativa."),
@@ -23,18 +23,18 @@ export const EmployeeSchema = z.object({
 })
 
 export const DepartmentSchema = z.object({
-  id: z.string().default(() => crypto.randomUUID()),
+  id: z.string().optional(),
   name: z.string().min(2, "O nome deve ter pelo menos 2 caracteres."),
 })
 
 export const GroupSchema = z.object({
-  id: z.string().default(() => crypto.randomUUID()),
+  id: z.string().optional(),
   name: z.string().min(2, "O nome deve ter pelo menos 2 caracteres."),
   permissions: z.array(z.string()).default([]),
 })
 
 export const ShoppingListItemSchema = z.object({
-  id: z.string().default(() => crypto.randomUUID()),
+  id: z.string().optional(),
   productId: z.string({ required_error: "Por favor, selecione um produto." }),
   departmentId: z.string({ required_error: "Por favor, selecione um setor." }),
   quantity: z.coerce.number().int().min(1, "A quantidade deve ser pelo menos 1."),
@@ -44,7 +44,7 @@ export const ShoppingListItemSchema = z.object({
 })
 
 export const StockMovementSchema = z.object({
-    id: z.string().default(() => crypto.randomUUID()),
+    id: z.string().optional(),
     productId: z.string(),
     quantity: z.number().int(),
     type: z.enum(["entry", "exit", "transfer"]),
@@ -65,7 +65,7 @@ export const StockTransferSchema = z.object({
 
 
 export const MissingItemSchema = z.object({
-  id: z.string().default(() => crypto.randomUUID()),
+  id: z.string().optional(),
   shoppingListItemId: z.string(),
   productId: z.string(),
   quantityMissing: z.number().int().min(1),

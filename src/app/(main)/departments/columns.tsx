@@ -33,17 +33,17 @@ function RowActions({
 
   const handleDelete = () => {
     startDeleteTransition(async () => {
-      const result = await deleteDepartment(department.id)
+      const result = await deleteDepartment(department.id!)
       if (result?.error) {
         toast({
           title: "Erro",
-          description: "Falha ao excluir departamento.",
+          description: "Falha ao excluir setor.",
           variant: "destructive",
         })
       } else {
         toast({
           title: "Sucesso",
-          description: "Departamento excluído com sucesso.",
+          description: "Setor excluído com sucesso.",
         })
         setIsDeleteDialogOpen(false)
       }
