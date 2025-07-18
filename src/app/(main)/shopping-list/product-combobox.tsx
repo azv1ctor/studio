@@ -64,7 +64,11 @@ export function ProductCombobox({
                   key={product.id}
                   value={product.id}
                   onSelect={handleSelect}
-                  onClick={() => handleSelect(product.id)}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleSelect(product.id);
+                  }}
                 >
                   <Check
                     className={cn(

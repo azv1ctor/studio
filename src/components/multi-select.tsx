@@ -86,8 +86,10 @@ export function MultiSelect({
                 onKeyDown={(e) => {
                   if (e.key === "Enter") handleSelect(value)
                 }}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => handleSelect(value)}
+                onMouseDown={(e) => {
+                  e.preventDefault()
+                  handleSelect(value)
+                }}
               >
                 <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
               </button>
@@ -118,8 +120,8 @@ export function MultiSelect({
                     onMouseDown={(e) => {
                       e.preventDefault()
                       e.stopPropagation()
+                      handleSelect(option.value)
                     }}
-                    onSelect={() => handleSelect(option.value)}
                     className="cursor-pointer"
                   >
                      <Check
