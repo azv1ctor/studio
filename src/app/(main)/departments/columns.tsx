@@ -98,7 +98,7 @@ export const getColumns = ({
     id: "actions",
     cell: ({ row }) => {
       const department = row.original
-      return <RowActions department={department} onEdit={onEdit} />
+      return <div className="text-right"><RowActions department={department} onEdit={onEdit} /></div>
     },
   },
 ]

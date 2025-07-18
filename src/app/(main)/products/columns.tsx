@@ -136,7 +136,7 @@ export const getColumns = ({
     id: "actions",
     cell: ({ row }) => {
       const product = row.original
-      return <RowActions product={product} onEdit={onEdit} />
+      return <div className="text-right"><RowActions product={product} onEdit={onEdit} /></div>
     },
   },
 ]

@@ -158,7 +158,7 @@ export const getColumns = ({ onEdit, onAddToStock }: { onEdit: (item: ShoppingLi
     id: "actions",
     cell: ({ row }) => {
       const item = row.original
-      return <RowActions item={item} onEdit={onEdit} onAddToStock={onAddToStock} />
+      return <div className="text-right"><RowActions item={item} onEdit={onEdit} onAddToStock={onAddToStock} /></div>
     },
   },
 ]
