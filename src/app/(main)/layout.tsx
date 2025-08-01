@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Menu, Briefcase, LogOut, Package, Users, Warehouse, ShoppingCart, Shield, ArrowRightLeft, FileText, Building, LayoutDashboard, Box } from "lucide-react"
+import { Menu, Briefcase, LogOut, Box, Warehouse, ArrowRightLeft, ShoppingCart, Users, Building, Shield, FileText, LayoutDashboard } from "lucide-react"
 import { logout } from "@/auth/actions"
 
 
@@ -30,10 +30,6 @@ const allLinks = [
 
 function MobileNav({ user }: { user: EmployeeWithPermissions}) {
   const visibleLinks = allLinks.filter(link => user.permissions?.includes(link.href))
-  
-  const handleLogout = async () => {
-    await logout();
-  }
 
   return (
     <Sheet>
@@ -91,7 +87,6 @@ export default async function MainLayout({
 }: {
   children: React.ReactNode
 }) {
-  // The user object from the session now contains the permissions.
   const user = await getSession()
   if (!user) {
     redirect("/login")
