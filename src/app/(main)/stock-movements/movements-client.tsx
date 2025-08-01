@@ -23,6 +23,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { format } from "date-fns"
+import { ptBR } from "date-fns/locale"
 import { cn } from "@/lib/utils"
 
 interface MovementsClientProps {
@@ -137,11 +138,11 @@ export function MovementsClient({ data, employees }: MovementsClientProps) {
                 {dateRange?.from ? (
                   dateRange.to ? (
                     <>
-                      {format(dateRange.from, "LLL dd, y")} -{" "}
-                      {format(dateRange.to, "LLL dd, y")}
+                      {format(dateRange.from, "PPP", { locale: ptBR })} -{" "}
+                      {format(dateRange.to, "PPP", { locale: ptBR })}
                     </>
                   ) : (
-                    format(dateRange.from, "LLL dd, y")
+                    format(dateRange.from, "PPP", { locale: ptBR })
                   )
                 ) : (
                   <span>Selecione um período</span>
@@ -156,6 +157,7 @@ export function MovementsClient({ data, employees }: MovementsClientProps) {
                 selected={dateRange}
                 onSelect={setDateRange}
                 numberOfMonths={2}
+                locale={ptBR}
               />
             </PopoverContent>
         </Popover>

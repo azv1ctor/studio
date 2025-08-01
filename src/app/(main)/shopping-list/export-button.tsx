@@ -16,25 +16,28 @@ export function ExportButton({ shoppingList }: ExportButtonProps) {
       printWindow.document.write(`
         <html>
           <head>
-            <title>Lista de Compras - StockPilot</title>
+            <title>Lista de Compras - Pimenta de Cheiro</title>
             <style>
-              body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.5; }
-              table { width: 100%; border-collapse: collapse; }
-              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+              body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.5; padding: 2rem; }
+              table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+              th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
               th { background-color: #f2f2f2; }
-              h1 { color: #3F51B5; }
+              h1 { color: #333; }
               @media print {
                 .no-print { display: none; }
+                @page { margin: 0; }
+                body { margin: 1.6cm; }
               }
             </style>
           </head>
           <body>
             <h1>Lista de Compras</h1>
-            <p>Gerado em: ${new Date().toLocaleString()}</p>
+            <p>Gerado em: ${new Date().toLocaleString("pt-BR")}</p>
             <table>
               <thead>
                 <tr>
                   <th>Produto</th>
+                  <th>Setor Solicitante</th>
                   <th>Quantidade</th>
                 </tr>
               </thead>
@@ -44,7 +47,8 @@ export function ExportButton({ shoppingList }: ExportButtonProps) {
                   .map(
                     (item) => `
                   <tr>
-                    <td>${item.productName}</td>
+                    <td>${item.productName || "N/A"}</td>
+                    <td>${item.departmentName || "N/A"}</td>
                     <td>${item.quantity}</td>
                   </tr>
                 `
@@ -56,14 +60,17 @@ export function ExportButton({ shoppingList }: ExportButtonProps) {
         </html>
       `)
       printWindow.document.close()
-      printWindow.focus();
-      printWindow.print();
-      printWindow.close();
+      printWindow.focus()
+      // Use a timeout to ensure content is loaded before printing
+      setTimeout(() => {
+        printWindow.print()
+        printWindow.close()
+      }, 250);
     }
   }
 
   return (
-    <Button variant="outline" onClick={handlePrint}>
+    <Button variant="outline" onClick={handlePrint} disabled={shoppingList.filter(item => item.status === 'pending').length === 0}>
       <Printer className="mr-2 h-4 w-4" />
       Exportar para Impressão
     </Button>
