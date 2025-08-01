@@ -86,7 +86,7 @@ export function ReportsClient({ products, movements, shoppingList, employees, mi
     { type: "Movimentações", title: "Relatório de Movimentações", description: "Entradas e saídas do último mês.", showAiButton: true },
     { type: "Compras", title: "Relatório de Compras", description: "Itens pendentes na lista de compras.", showAiButton: true },
     { type: "Atividades dos Funcionários", title: "Atividades dos Funcionários", description: "Atividades por funcionário.", showAiButton: true },
-    { type: "Itens Faltantes", title: "Relatório de Itens Faltantes", description: "Produtos com entrega parcial ou faltante.", showAiButton: false },
+    { type: "Itens Faltantes", title: "Relatório de Itens Faltantes", description: "Produtos com entrega parcial ou faltante.", showAiButton: true },
   ]
 
   return (
