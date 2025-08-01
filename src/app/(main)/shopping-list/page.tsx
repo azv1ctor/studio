@@ -4,6 +4,7 @@ import { getShoppingList, getProducts, getEmployees, getDepartments } from "@/li
 import type { ShoppingListItemWithDetails } from "@/lib/types"
 import { ShoppingListClient } from "./shopping-list-client"
 import { ExportButton } from "./export-button"
+import { Button } from "@/components/ui/button"
 
 export default async function ShoppingListPage() {
   const shoppingList = await getShoppingList()
@@ -22,12 +23,15 @@ export default async function ShoppingListPage() {
 
   return (
     <div className="space-y-8">
-      <PageHeader
-        title="Lista de Compras"
-        description="Gerencie os itens que precisam ser comprados."
-      >
-        <ExportButton shoppingList={listWithDetails} />
-      </PageHeader>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <PageHeader
+          title="Lista de Compras"
+          description="Gerencie os itens que precisam ser comprados."
+        />
+        <div className="flex-shrink-0">
+          <ExportButton shoppingList={listWithDetails} />
+        </div>
+      </div>
       <ShoppingListClient
         data={listWithDetails}
         products={products}
